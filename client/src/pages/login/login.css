@@ -9,6 +9,9 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  padding: 30px;
+  background-color: white;
+  border-radius: 17px;
 }
 
 .lInput {
@@ -16,6 +19,7 @@
   height: 30px;
   padding: 10px;
   border-radius: 5px;
+  font-size: 17px;
 }
 
 .lButton {
@@ -26,6 +30,7 @@
   font-weight: bold;
   cursor: pointer;
   border-radius: 5px;
+  font-size: 16px;
 }
 
 .lButton:disabled {
@@ -37,6 +42,12 @@
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+.lHeader {
+  font-size: 30px;
+  align-self: center;
+  color: #0d18b3f2;
 }
 
 /* General Styles */
@@ -52,7 +63,7 @@ body {
   min-height: 100vh;
   justify-content: center;
   align-items: center;
-  background-image: url("https://muralsyourway.vtexassets.com/arquivos/ids/238881/Hot-Air-Balloons-With-Rainbow-Wall-Mural.jpg?v=638164847977730000");
+  background-image: url("https://wallpapercave.com/wp/wp1846088.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

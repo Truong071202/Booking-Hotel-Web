@@ -38,6 +38,7 @@ const Login = () => {
     <div className="login-page">
       <div className="login">
         <div className="lContainer">
+          <div className="lHeader">Login</div>
           <input
             type="text"
             placeholder="Username"
