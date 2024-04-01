@@ -1,0 +1,98 @@
+.review {
+  margin-top: 6vh;
+  width: 100%;
+  max-width: 1024px;
+}
+
+.titleReview {
+  margin-bottom: 30px;
+}
+
+.containerReviews {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; /* Đảm bảo các cột đều căng trên hàng */
+}
+
+.cardReview {
+  width: calc(
+    33.33% - 20px
+  ); /* Để 3 cột trên mỗi hàng, với khoảng cách giữa các thẻ là 10px */
+  margin-bottom: 20px; /* Khoảng cách dưới giữa các thẻ */
+  border: 1px solid #333;
+  border-radius: 12px;
+}
+
+.boxReview {
+  padding: 10px;
+}
+
+.nameCustomer {
+  margin-bottom: 10px;
+  border-bottom: 1px solid #333;
+  font-weight: bold;
+}
+
+.containerComment {
+  display: flex;
+}
+
+.writeReview {
+  margin-bottom: 20px;
+}
+
+.feedback,
+.inputInfo {
+  flex: 1; /* Chia đều chiều rộng cho hai cột */
+}
+
+.feedback {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.inputInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.inputFeedback {
+  height: 120px; /* Đặt chiều cao mong muốn */
+  border-radius: 5px;
+  width: 90%;
+}
+
+.infInput {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.inputText {
+  height: 40px;
+  border-radius: 5px;
+  border: 1px solid #333;
+}
+
+.submit {
+  padding: 15px;
+  background-color: #0871c2;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  margin-right: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.cancel {
+  padding: 15px;
+  background-color: #fff;
+  color: #0871c2;
+  border-radius: 8px;
+  border: 1px solid #333;
+  font-weight: bold;
+  cursor: pointer;
+}
