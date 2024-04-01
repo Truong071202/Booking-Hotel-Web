@@ -2,6 +2,7 @@ import {
   faBed,
   faCalendarDays,
   faCar,
+  faHouse,
   faPerson,
   faPlane,
   faTaxi,
@@ -13,7 +14,7 @@ import { useContext, useState } from "react";
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { format } from "date-fns";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { SearchContext } from "../../context/SearchContext";
 import { AuthContext } from "../../context/AuthContext";
 
@@ -61,43 +62,35 @@ const Header = ({ type }) => {
         }
       >
         <div className="headerList">
+          <div className="headerListItem">
+            <FontAwesomeIcon icon={faHouse} />
+            <span>
+              <Link to="/" style={{ color: "unset", textDecoration: "none" }}>
+                Trang chủ
+              </Link>
+            </span>
+          </div>
           <div className="headerListItem active">
             <FontAwesomeIcon icon={faBed} />
-            <span>Stays</span>
-          </div>
-          <div className="headerListItem">
-            <FontAwesomeIcon icon={faPlane} />
-            <span>Flights</span>
-          </div>
-          <div className="headerListItem">
-            <FontAwesomeIcon icon={faCar} />
-            <span>Car rentals</span>
-          </div>
-          <div className="headerListItem">
-            <FontAwesomeIcon icon={faBed} />
-            <span>Attractions</span>
-          </div>
-          <div className="headerListItem">
-            <FontAwesomeIcon icon={faTaxi} />
-            <span>Airport taxis</span>
+            <span>Lưu trú</span>
           </div>
         </div>
         {type !== "list" && (
           <>
-            <h1 className="headerTitle">
-              A lifetime of discounts? It's Genius.
-            </h1>
+            <h1 className="headerTitle">Đăng nhập để tiết kiệm</h1>
             <p className="headerDesc">
-              Get rewarded for your travels – unlock instant savings of 10% or
-              more with a free HotelBooking account
+              Nhận phần thưởng cho chuyến du lịch của bạn - tiết kiệm ngay lập
+              tức từ 10% trở lên với tài khoản HotelBooking miễn phí
             </p>
-            {!user && <button className="headerBtn">Sign in / Register</button>}
+            {!user && (
+              <button className="headerBtn">Đăng nhập / Đăng ký</button>
+            )}
             <div className="headerSearch">
               <div className="headerSearchItem">
                 <FontAwesomeIcon icon={faBed} className="headerIcon" />
                 <input
                   type="text"
-                  placeholder="Where are you going?"
+                  placeholder="Bạn đang ở đâu?"
                   className="headerSearchInput"
                   onChange={(e) => setDestination(e.target.value)}
                 />
@@ -127,11 +120,11 @@ const Header = ({ type }) => {
                 <span
                   onClick={() => setOpenOptions(!openOptions)}
                   className="headerSearchText"
-                >{`${options.adult} adult · ${options.children} children · ${options.room} room`}</span>
+                >{`${options.adult} người lớn · ${options.children} trẻ em · ${options.room} phòng`}</span>
                 {openOptions && (
                   <div className="options">
                     <div className="optionItem">
-                      <span className="optionText">Adult</span>
+                      <span className="optionText">Người lớn</span>
                       <div className="optionCounter">
                         <button
                           disabled={options.adult <= 1}
@@ -152,7 +145,7 @@ const Header = ({ type }) => {
                       </div>
                     </div>
                     <div className="optionItem">
-                      <span className="optionText">Children</span>
+                      <span className="optionText">Trẻ em</span>
                       <div className="optionCounter">
                         <button
                           disabled={options.children <= 0}
@@ -173,7 +166,7 @@ const Header = ({ type }) => {
                       </div>
                     </div>
                     <div className="optionItem">
-                      <span className="optionText">Room</span>
+                      <span className="optionText">Phòng</span>
                       <div className="optionCounter">
                         <button
                           disabled={options.room <= 1}
@@ -198,7 +191,7 @@ const Header = ({ type }) => {
               </div>
               <div className="headerSearchItem">
                 <button className="headerBtn" onClick={handleSearch}>
-                  Search
+                  Tìm kiếm
                 </button>
               </div>
             </div>

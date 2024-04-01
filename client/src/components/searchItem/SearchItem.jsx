@@ -1,7 +1,17 @@
 import "./searchItem.css";
 import { Link } from "react-router-dom";
 
+const shortenDescription = (desc, maxLength) => {
+  if (desc.length <= maxLength) {
+    return desc;
+  } else {
+    return desc.substring(0, maxLength) + "...";
+  }
+};
+
 const SearchItem = ({ item }) => {
+  const shortenedDesc = shortenDescription(item.desc, 100); // Đặt độ dài tối đa 100 ký tự, bạn có thể thay đổi nếu cần
+
   return (
     <div className="searchItem">
       <img src={item.photos[0]} alt="" className="siImg" />
@@ -12,7 +22,7 @@ const SearchItem = ({ item }) => {
         <span className="siSubtitle">
           Studio Apartment with Air conditioning
         </span>
-        <span className="siFeatures">{item.desc}</span>
+        <span className="siFeatures">{shortenedDesc}</span>
         <span className="siCancelOp">Free cancellation </span>
         <span className="siCancelOpSubtitle">
           You can cancel later, so lock in this great price today!

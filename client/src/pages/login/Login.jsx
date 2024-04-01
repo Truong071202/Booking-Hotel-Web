@@ -11,7 +11,7 @@ const Login = () => {
   });
   const [showPassword, setShowPassword] = useState(false); // State for password visibility
 
-  const { loading, error, dispatch } = useContext(AuthContext);
+  const { loading, error, dispatch, login } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -24,13 +24,9 @@ const Login = () => {
 
   const handleClick = async (e) => {
     e.preventDefault();
-    dispatch({ type: "LOGIN_START" });
-    try {
-      const res = await axios.post("/auth/login", credentials);
-      dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
-      navigate("/");
-    } catch (err) {
-      dispatch({ type: "LOGIN_FAILURE", payload: err.response.data });
+    const res = await login(credentials);
+    if (res) {
+      navigate("/"); // Nếu đăng nhập thành công, chuyển hướng đến trang /hom
     }
   };
 

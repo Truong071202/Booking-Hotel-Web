@@ -4,7 +4,11 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 
 const Navbar = () => {
-  const { user } = useContext(AuthContext);
+  const { user, dispatch, logout } = useContext(AuthContext);
+
+  const handleLogout = () => {
+    logout();
+  };
 
   return (
     <div className="navbar">
@@ -13,13 +17,25 @@ const Navbar = () => {
           <span className="logo">HotelBooking</span>
         </Link>
         {user ? (
-          user.username
+          <div className="navItems">
+            <span>{user.username}</span>
+            <button className="navButton" onClick={handleLogout}>
+              Đăng xuất
+            </button>
+            <Link to="/login" style={{ display: "none" }}>
+              Đăng nhập
+            </Link>
+          </div>
         ) : (
           <div className="navItems">
-            <button className="navButton">Register</button>
             <button className="navButton">
-              <Link style={{ textDecoration: "none" }} to="/login">
-                Login
+              <Link style={{ textDecoration: "none" }} to="/register">
+                Đăng ký
+              </Link>
+            </button>
+            <button style={{ padding: "5px", marginLeft: "20px" }}>
+              <Link to="/login" style={{ textDecoration: "none" }}>
+                Đăng nhập
               </Link>
             </button>
           </div>
