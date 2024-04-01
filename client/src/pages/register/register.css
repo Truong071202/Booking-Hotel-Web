@@ -1,0 +1,80 @@
+.register {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 30px;
+  background-color: white;
+  border-radius: 17px;
+}
+
+.rInput {
+  width: 36vh;
+  height: 30px;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 17px;
+}
+
+.rButton {
+  border: none;
+  padding: 10px 20px;
+  background-color: #0071c2;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.rButton:disabled {
+  background-color: #0071c28c;
+  cursor: not-allowed;
+}
+
+.rHeader {
+  font-size: 30px;
+  align-self: center;
+  color: #0d18b3f2;
+}
+
+/* General Styles */
+body {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Register Page Styles (assuming a 'register-page' class for the register page container) */
+.register-page {
+  display: flex;
+  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
+  background-image: url("https://wallpapercave.com/wp/wp1846088.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Register Container */
+.register-page .register-container {
+  /* Target register-container within register-page */
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.8
+  ); /* Semi-transparent white background */
+  padding: 30px;
+  border-radius: 5px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Other styles from previous response... */
