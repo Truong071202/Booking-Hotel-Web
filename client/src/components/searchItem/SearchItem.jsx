@@ -10,7 +10,7 @@ const shortenDescription = (desc, maxLength) => {
 };
 
 const SearchItem = ({ item }) => {
-  const shortenedDesc = shortenDescription(item.desc, 100); // Đặt độ dài tối đa 100 ký tự, bạn có thể thay đổi nếu cần
+  const shortenedDesc = shortenDescription(item.desc, 100); // Đặt độ dài tối đa 100 ký tự
 
   return (
     <div className="searchItem">

@@ -16,6 +16,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { SearchContext } from "../../context/SearchContext";
 import { AuthContext } from "../../context/AuthContext";
 import Reserve from "../../components/reserve/Reserve";
+import Review from "../../components/review/Review";
 
 const Hotel = () => {
   const location = useLocation();
@@ -101,18 +102,18 @@ const Hotel = () => {
             </div>
           )}
           <div className="hotelWrapper">
-            <button className="bookNow">Reserve or Book Now!</button>
+            <button className="bookNow">Đặt ngay!</button>
             <h1 className="hotelTitle">{data.name}</h1>
             <div className="hotelAddress">
               <FontAwesomeIcon icon={faLocationDot} />
               <span>{data.address}</span>
             </div>
             <span className="hotelDistance">
-              Excellent location – {data.distance}m from center
+              Vị trí hợp lý – {data.distance}m từ trung tâm
             </span>
             <span className="hotelPriceHighlight">
-              Book a stay over ${data.cheapestPrice} at this property and get a
-              free airport taxi
+              Đặt phòng giá trị trên ${data.cheapestPrice} để nhận thêm ưu đãi
+              và quà miễn phí.
             </span>
             <div className="hotelImages">
               {data.photos?.map((photo, i) => (
@@ -145,6 +146,7 @@ const Hotel = () => {
               </div>
             </div>
           </div>
+          <Review />
           <MailList />
           <Footer />
         </div>
