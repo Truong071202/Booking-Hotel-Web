@@ -23,14 +23,17 @@ router.put("/:id", verifyAdmin, updateHotel);
 
 //DELETE
 router.delete("/:id", verifyAdmin, deleteHotel);
+//get inf Featured + property list
+router.get("/countByType", countByType);
+router.get("/countByCity", countByCity);
 
+router.get("/:id", getHotel);
 //GET
 router.get("/find/:id", getHotel);
 
 //GET ALL
+
 router.get("/", getHotels);
-router.get("/countByCity", countByCity);
-router.get("/countByType", countByType);
 router.get("/room/:id", getHotelRooms);
 
 export default router;

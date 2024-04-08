@@ -15,24 +15,29 @@
 }
 
 .cardReview {
-  width: calc(
-    33.33% - 20px
-  ); /* Để 3 cột trên mỗi hàng, với khoảng cách giữa các thẻ là 10px */
-  margin-bottom: 20px; /* Khoảng cách dưới giữa các thẻ */
-  border: 1px solid #333;
+  width: calc(33.33% - 20px);
+  margin-bottom: 20px;
+  border: 1px solid #0871c2;
   border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Điều chỉnh giá trị để phù hợp với thiết kế của bạn */
 }
 
 .boxReview {
   padding: 10px;
 }
 
-.nameCustomer {
-  margin-bottom: 10px;
+.revCustomer {
   border-bottom: 1px solid #333;
-  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
 }
 
+.ratingNumber {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
 .containerComment {
   display: flex;
 }
@@ -95,4 +100,14 @@
   border: 1px solid #333;
   font-weight: bold;
   cursor: pointer;
+}
+
+.inputRating {
+  width: 40px;
+  height: 30px;
+}
+
+.revCustomer > h4,
+.ratingNumber > svg {
+  color: #0871c2;
 }

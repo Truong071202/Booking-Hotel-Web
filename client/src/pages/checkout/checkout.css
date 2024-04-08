@@ -1,0 +1,41 @@
+.checkout {
+  background-color: #f0f8ff; /* Màu xanh dương */
+  padding: 20px;
+  border-radius: 10px;
+  margin: auto;
+  width: 50%;
+}
+
+.containerPayment {
+  margin-top: 20px;
+}
+
+.paymentMethod {
+  display: flex;
+  flex-direction: column;
+}
+
+.payment {
+  margin-bottom: 10px;
+}
+
+.submitCheckout {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.checkoutButton {
+  background-color: #fff; /* Màu trắng */
+  color: #000; /* Màu văn bản đen */
+  border: 2px solid #000; /* Viền đen */
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.checkoutButton:hover {
+  background-color: #000; /* Màu đen khi hover */
+  color: #fff; /* Màu văn bản trắng khi hover */
+}

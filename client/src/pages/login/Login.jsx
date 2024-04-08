@@ -3,6 +3,7 @@ import "./login.css";
 import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Navbar from "../../components/navbar/Navbar";
 
 const Login = () => {
   const [credentials, setCredentials] = useState({
@@ -31,43 +32,50 @@ const Login = () => {
   };
 
   return (
-    <div className="login-page">
-      <div className="login">
-        <div className="lContainer">
-          <div className="lHeader">Login</div>
-          <input
-            type="text"
-            placeholder="Username"
-            id="username"
-            onChange={handleChange}
-            className="lInput"
-            required
-          />
-          <input
-            type={showPassword ? "text" : "password"} // Toggle input type
-            placeholder="Password"
-            id="password"
-            onChange={handleChange}
-            className="lInput"
-            required
-          />
-          <div className="show-password-container">
+    <>
+      <Navbar />
+      <div className="login-page">
+        <div className="login">
+          <div className="lContainer">
+            <div className="lHeader">Login</div>
             <input
-              style={{ height: "20px" }}
-              type="checkbox"
-              id="showPassword"
-              checked={showPassword} // Set checkbox state
-              onChange={handleShowPassword}
+              type="text"
+              placeholder="Username"
+              id="username"
+              onChange={handleChange}
+              className="lInput"
+              required
             />
-            <label htmlFor="showPassword">Show Password</label>
+            <input
+              type={showPassword ? "text" : "password"} // Toggle input type
+              placeholder="Password"
+              id="password"
+              onChange={handleChange}
+              className="lInput"
+              required
+            />
+            <div className="show-password-container">
+              <input
+                style={{ height: "20px" }}
+                type="checkbox"
+                id="showPassword"
+                checked={showPassword} // Set checkbox state
+                onChange={handleShowPassword}
+              />
+              <label htmlFor="showPassword">Show Password</label>
+            </div>
+            <button
+              disabled={loading}
+              onClick={handleClick}
+              className="lButton"
+            >
+              Login
+            </button>
+            {error && <span>{error.message}</span>}
           </div>
-          <button disabled={loading} onClick={handleClick} className="lButton">
-            Login
-          </button>
-          {error && <span>{error.message}</span>}
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

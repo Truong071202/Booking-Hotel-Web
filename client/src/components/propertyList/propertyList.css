@@ -18,7 +18,9 @@
   height: 150px;
   object-fit: cover;
 }
-
+.pListImg:hover {
+  opacity: 0.5;
+}
 .pListTitles > h1 {
   font-size: 18px;
   color: #444;

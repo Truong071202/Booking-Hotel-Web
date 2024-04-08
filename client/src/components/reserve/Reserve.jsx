@@ -1,9 +1,9 @@
+import React, { useState } from "react";
+import "./reserve.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
-
-import "./reserve.css";
 import useFetch from "../../hooks/useFetch";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { SearchContext } from "../../context/SearchContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -29,8 +29,6 @@ const Reserve = ({ setOpen, hotelId }) => {
     return dates;
   };
 
-  console.log(getDatesInRange(dates[0].startDate, dates[0].endDate));
-
   const alldates = getDatesInRange(dates[0].startDate, dates[0].endDate);
 
   const isAvailable = (roomNumber) => {
@@ -54,19 +52,25 @@ const Reserve = ({ setOpen, hotelId }) => {
   const navigate = useNavigate();
 
   const handleClick = async () => {
-    try {
-      await Promise.all(
-        selectedRooms.map((roomId) => {
-          const res = axios.put(`/rooms/availability/${roomId}`, {
-            dates: alldates,
-          });
-          return res.data;
-        })
-      );
-      setOpen(false);
-      navigate("/");
-    } catch (err) {}
+    if (selectedRooms.length > 0) {
+      // Kiểm tra nếu đã chọn ít nhất một phòng
+      try {
+        await Promise.all(
+          selectedRooms.map((roomId) => {
+            const res = axios.put(`/rooms/availability/${roomId}`, {
+              dates: alldates,
+            });
+            return res.data;
+          })
+        );
+        setOpen(false);
+        navigate("/information");
+      } catch (err) {}
+    } else {
+      alert("Vui lòng chọn ít nhất một phòng trước khi tiếp tục.");
+    }
   };
+
   return (
     <div className="reserve">
       <div className="rContainer">

@@ -1,0 +1,51 @@
+.Information {
+  background-color: #f0f8ff; /* Màu xanh biển trắng */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Đổ bóng */
+  margin: 100px auto;
+  max-width: 700px;
+}
+
+.Information h2 {
+  color: #005b9a; /* Màu xanh đậm */
+}
+
+.inputContainer {
+  margin-bottom: 15px;
+}
+
+.inputContainer label {
+  display: block;
+  margin-bottom: 5px;
+  color: #005b9a; /* Màu xanh đậm */
+}
+
+.inputContainer input[type="text"],
+.inputContainer input[type="email"],
+.inputContainer input[type="tel"] {
+  width: 96%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.reminder {
+  color: red; /* Màu xanh đậm */
+  font-style: italic;
+  margin-bottom: 20px;
+}
+
+.submitButton {
+  background-color: #005b9a; /* Màu xanh đậm */
+  color: #fff; /* Màu chữ trắng */
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submitButton:hover {
+  background-color: #00416a; /* Màu xanh đậm khi di chuột qua */
+}

@@ -70,9 +70,16 @@ const Header = ({ type }) => {
               </Link>
             </span>
           </div>
-          <div className="headerListItem active">
+          <div className="headerListItem">
             <FontAwesomeIcon icon={faBed} />
-            <span>Lưu trú</span>
+            <span>
+              <Link
+                to="/hotels"
+                style={{ color: "unset", textDecoration: "none" }}
+              >
+                Lưu trú
+              </Link>
+            </span>
           </div>
         </div>
         {type !== "list" && (
@@ -83,7 +90,13 @@ const Header = ({ type }) => {
               tức từ 10% trở lên với tài khoản HotelBooking miễn phí
             </p>
             {!user && (
-              <button className="headerBtn">Đăng nhập / Đăng ký</button>
+              <Link
+                to="/register"
+                className="headerBtn"
+                style={{ textDecoration: "none" }}
+              >
+                Đăng nhập / Đăng ký
+              </Link>
             )}
             <div className="headerSearch">
               <div className="headerSearchItem">

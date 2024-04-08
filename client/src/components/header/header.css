@@ -19,7 +19,7 @@
 .headerList {
   display: flex;
   gap: 40px;
-  margin-bottom: 50px;
+  margin-bottom: 22px;
 }
 
 .headerListItem {
@@ -125,4 +125,9 @@
 
 .optionCounterButton:disabled {
   cursor: not-allowed;
+}
+
+.rdrCalendarWrapper {
+  position: absolute;
+  left: 230px;
 }

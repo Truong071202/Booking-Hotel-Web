@@ -10,9 +10,8 @@ import {
   faCircleXmark,
   faLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
-import { useContext, useState } from "react";
-import useFetch from "../../hooks/useFetch";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useContext, useState, useEffect } from "react"; // Import useEffect
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { SearchContext } from "../../context/SearchContext";
 import { AuthContext } from "../../context/AuthContext";
 import Reserve from "../../components/reserve/Reserve";
@@ -24,14 +23,42 @@ const Hotel = () => {
   const [slideNumber, setSlideNumber] = useState(0);
   const [open, setOpen] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const [data, setData] = useState(null); // Initialize data state
+  const [loading, setLoading] = useState(true); // Initialize loading state
+  const [error, setError] = useState(null); // Initialize error state
 
-  const { data, loading, error } = useFetch(`/hotels/find/${id}`);
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  console.log(data);
-
   const { dates, options } = useContext(SearchContext);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await fetch(`/hotels/find/${id}`);
+        if (!result.ok) {
+          throw new Error("Failed to fetch data");
+        }
+        const data = await result.json();
+        setData(data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Fetch error:", error);
+        setError(error);
+        setLoading(false);
+      }
+    };
+
+    if (id) {
+      fetchData();
+    }
+  }, [id]);
+
+  // console.log("data");
+  // console.log(data);
+
+  // console.log("id");
+  // console.log(id);
 
   const MILLISECONDS_PER_DAY = 1000 * 60 * 60 * 24;
 
@@ -67,6 +94,11 @@ const Hotel = () => {
       navigate("/login");
     }
   };
+
+  const handleGoBack = () => {
+    window.history.back();
+  };
+
   return (
     <div>
       <Navbar />
@@ -75,6 +107,13 @@ const Hotel = () => {
         "loading"
       ) : (
         <div className="hotelContainer">
+          <div className="backButton" onClick={handleGoBack}>
+            <FontAwesomeIcon
+              icon={faCircleArrowLeft}
+              style={{ marginRight: "5px" }}
+            />
+            <span>Quay lại trang trước</span>
+          </div>
           {open && (
             <div className="slider">
               <FontAwesomeIcon
@@ -102,7 +141,9 @@ const Hotel = () => {
             </div>
           )}
           <div className="hotelWrapper">
-            <button className="bookNow">Đặt ngay!</button>
+            <button onClick={handleClick} className="bookNow">
+              Đặt ngay!
+            </button>
             <h1 className="hotelTitle">{data.name}</h1>
             <div className="hotelAddress">
               <FontAwesomeIcon icon={faLocationDot} />
@@ -133,20 +174,22 @@ const Hotel = () => {
                 <p className="hotelDesc">{data.desc}</p>
               </div>
               <div className="hotelDetailsPrice">
-                <h1>Perfect for a {days}-night stay!</h1>
-                <span>
-                  Located in the real heart of Krakow, this property has an
-                  excellent location score of 9.8!
-                </span>
+                <h1>Nơi lý tưởng cho {days}-đêm nghỉ dưỡng!</h1>
+                <span>Địa điểm lý tưởng để nghỉ dưỡng và thư giãn!</span>
                 <h2>
                   <b>${days * data.cheapestPrice * options.room}</b> ({days}{" "}
-                  nights)
+                  đêm)
                 </h2>
-                <button onClick={handleClick}>Reserve or Book Now!</button>
+                <p className="dateBook">
+                  Ngày bắt đầu: {dates[0].startDate.toLocaleDateString()}
+                </p>
+                <p className="dateBook">
+                  Ngày kết thúc: {dates[0].endDate.toLocaleDateString()}
+                </p>
               </div>
             </div>
           </div>
-          <Review />
+          <Review hotelId={id} />
           <MailList />
           <Footer />
         </div>

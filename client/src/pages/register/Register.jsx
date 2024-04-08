@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import "./register.css";
 import { AuthContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import Navbar from "../../components/navbar/Navbar";
 
 const Register = () => {
   const [credentials, setCredentials] = useState({
@@ -32,59 +33,66 @@ const Register = () => {
   };
 
   return (
-    <div className="register-page">
-      <div className="register">
-        <div className="rContainer">
-          <div className="rHeader">Register</div>
-          <input
-            type="text"
-            placeholder="Username"
-            id="username"
-            onChange={handleChange}
-            className="rInput"
-            required
-          />
-          <input
-            type="email"
-            placeholder="Email"
-            id="email"
-            onChange={handleChange}
-            className="rInput"
-            required
-          />
-          <input
-            type={showPassword ? "text" : "password"} // Toggle input type
-            placeholder="Password"
-            id="password"
-            onChange={handleChange}
-            className="rInput"
-            required
-          />
-          <input
-            type={showPassword ? "text" : "password"} // Toggle input type
-            placeholder="Confirm Password"
-            id="confirmPassword"
-            onChange={handleChange}
-            className="rInput"
-            required
-          />
-          <div className="show-password-container">
+    <>
+      <Navbar />
+      <div className="register-page">
+        <div className="register">
+          <div className="rContainer">
+            <div className="rHeader">Register</div>
             <input
-              style={{ height: "20px" }}
-              type="checkbox"
-              id="showPassword"
-              checked={showPassword} // Set checkbox state
-              onChange={handleShowPassword}
+              type="text"
+              placeholder="Username"
+              id="username"
+              onChange={handleChange}
+              className="rInput"
+              required
             />
-            <label htmlFor="showPassword">Show Password</label>
+            <input
+              type="email"
+              placeholder="Email"
+              id="email"
+              onChange={handleChange}
+              className="rInput"
+              required
+            />
+            <input
+              type={showPassword ? "text" : "password"} // Toggle input type
+              placeholder="Password"
+              id="password"
+              onChange={handleChange}
+              className="rInput"
+              required
+            />
+            <input
+              type={showPassword ? "text" : "password"} // Toggle input type
+              placeholder="Confirm Password"
+              id="confirmPassword"
+              onChange={handleChange}
+              className="rInput"
+              required
+            />
+            <div className="show-password-container">
+              <input
+                style={{ height: "20px" }}
+                type="checkbox"
+                id="showPassword"
+                checked={showPassword} // Set checkbox state
+                onChange={handleShowPassword}
+              />
+              <label htmlFor="showPassword">Show Password</label>
+            </div>
+            <button
+              disabled={loading}
+              onClick={handleClick}
+              className="rButton"
+            >
+              Register
+            </button>
+            {error && <span>{error.message}</span>}
           </div>
-          <button disabled={loading} onClick={handleClick} className="rButton">
-            Register
-          </button>
-          {error && <span>{error.message}</span>}
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
