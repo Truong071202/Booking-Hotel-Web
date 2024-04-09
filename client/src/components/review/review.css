@@ -19,7 +19,7 @@
   margin-bottom: 20px;
   border: 1px solid #0871c2;
   border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Điều chỉnh giá trị để phù hợp với thiết kế của bạn */
+  box-shadow: 0 2px 8px 0 rgba(26, 26, 26, 0.16); /* Điều chỉnh giá trị để phù hợp với thiết kế của bạn */
 }
 
 .boxReview {
@@ -110,4 +110,10 @@
 .revCustomer > h4,
 .ratingNumber > svg {
   color: #0871c2;
+}
+
+.optionRating {
+  display: flex;
+  gap: 4px;
+  align-items: center;
 }

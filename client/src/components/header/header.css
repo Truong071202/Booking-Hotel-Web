@@ -126,8 +126,3 @@
 .optionCounterButton:disabled {
   cursor: not-allowed;
 }
-
-.rdrCalendarWrapper {
-  position: absolute;
-  left: 230px;
-}

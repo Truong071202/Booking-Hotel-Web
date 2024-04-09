@@ -12,8 +12,9 @@ const Register = () => {
     confirmPassword: "",
   });
   const [showPassword, setShowPassword] = useState(false); // State for password visibility
+  const [error, setError] = useState(null); // State for error message
 
-  const { loading, error, register } = useContext(AuthContext);
+  const { loading, register } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -26,6 +27,13 @@ const Register = () => {
 
   const handleClick = async (e) => {
     e.preventDefault();
+
+    // Kiểm tra xác nhận mật khẩu
+    if (credentials.password !== credentials.confirmPassword) {
+      alert("Mật khẩu không hợp lệ");
+      return;
+    }
+
     const res = await register(credentials);
     if (res) {
       navigate("/login");
@@ -88,7 +96,7 @@ const Register = () => {
             >
               Register
             </button>
-            {error && <span>{error.message}</span>}
+            {error && <span>{error}</span>}
           </div>
         </div>
       </div>

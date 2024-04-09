@@ -68,7 +68,9 @@ const Review = () => {
         ))}
       </div>
       <div className="writeReview">
-        <h3 style={{ marginBottom: "20px" }}>Write a review</h3>
+        <h3 style={{ marginBottom: "20px", color: "#0871c2" }}>
+          Write a review
+        </h3>
         <div className="containerComment">
           <div className="feedback">
             <label>Feedback</label>
@@ -102,7 +104,13 @@ const Review = () => {
               />
             </div>
             <div className="infInput">
-              <label htmlFor="">Đánh giá</label>
+              <label className="optionRating" htmlFor="">
+                Đánh giá (
+                <span className="ratingNumber">
+                  0-5 <FontAwesomeIcon icon={faStar} />
+                </span>
+                )
+              </label>
               <select
                 id="rating"
                 className="inputRating"

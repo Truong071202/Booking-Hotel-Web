@@ -7,6 +7,8 @@ import { format } from "date-fns";
 import { DateRange } from "react-date-range";
 import SearchItem from "../../components/searchItem/SearchItem.jsx";
 import useFetch from "../../hooks/useFetch.js";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 const List = () => {
   const location = useLocation();
@@ -26,11 +28,20 @@ const List = () => {
   const handleClick = () => {
     reFetch();
   };
-
+  const handleGoBack = () => {
+    window.history.back();
+  };
   return (
     <div>
       <Navbar />
       <Header type="list" />
+      <div className="backButton" onClick={handleGoBack}>
+        <FontAwesomeIcon
+          icon={faCircleArrowLeft}
+          style={{ marginRight: "5px" }}
+        />
+        <span>Quay lại trang trước</span>
+      </div>
       <div className="listContainer">
         <div className="listWrapper">
           <div className="listSearch">
@@ -66,6 +77,7 @@ const List = () => {
                   </span>
                   <input
                     type="number"
+                    min={1}
                     onChange={(e) => setMin(e.target.value)}
                     className="lsOptionInput"
                   />
@@ -76,6 +88,7 @@ const List = () => {
                   </span>
                   <input
                     type="number"
+                    min={1}
                     onChange={(e) => setMax(e.target.value)}
                     className="lsOptionInput"
                   />
