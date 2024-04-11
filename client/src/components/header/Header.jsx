@@ -10,7 +10,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./header.css";
 import { DateRange } from "react-date-range";
-import { useContext, useState } from "react";
+import { useContext, useState, useRef } from "react"; // Thêm useRef vào để tham chiếu đến DateRange
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { format } from "date-fns";
@@ -37,6 +37,7 @@ const Header = ({ type }) => {
 
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
+  const dateRangeRef = useRef(); // Tham chiếu đến DateRange
 
   const handleOption = (name, operation) => {
     setOptions((prev) => {
@@ -50,10 +51,26 @@ const Header = ({ type }) => {
   const { dispatch } = useContext(SearchContext);
 
   const handleSearch = () => {
-    dispatch({ type: "NEW_SEARCH", payload: { destination, dates, options } });
+    if (!destination.trim()) {
+      alert("Vui lòng nhập địa điểm trước khi tìm kiếm!");
+      return;
+    }
+
+    dispatch({
+      type: "NEW_SEARCH",
+      payload: { destination, dates, options },
+    });
     navigate("/hotels", { state: { destination, dates, options } });
   };
 
+  // Đóng DateRange khi click vào options
+  const handleCloseDateRange = () => {
+    setOpenDate(false);
+  };
+
+  const handleCloseOptions = () => {
+    setOpenOptions(false);
+  };
   return (
     <div className="header">
       <div
@@ -70,7 +87,7 @@ const Header = ({ type }) => {
               </Link>
             </span>
           </div>
-          <div className="headerListItem">
+          {/* <div className="headerListItem">
             <FontAwesomeIcon icon={faBed} />
             <span>
               <Link
@@ -80,7 +97,7 @@ const Header = ({ type }) => {
                 Lưu trú
               </Link>
             </span>
-          </div>
+          </div> */}
         </div>
         {type !== "list" && (
           <>
@@ -89,7 +106,7 @@ const Header = ({ type }) => {
               Nhận phần thưởng cho chuyến du lịch của bạn - tiết kiệm ngay lập
               tức từ 10% trở lên với tài khoản HotelBooking miễn phí
             </p>
-            {!user && (
+            {/* {!user && (
               <Link
                 to="/register"
                 className="headerBtn"
@@ -97,7 +114,7 @@ const Header = ({ type }) => {
               >
                 Đăng nhập / Đăng ký
               </Link>
-            )}
+            )} */}
             <div className="headerSearch">
               <div className="headerSearchItem">
                 <FontAwesomeIcon icon={faBed} className="headerIcon" />
@@ -108,7 +125,7 @@ const Header = ({ type }) => {
                   onChange={(e) => setDestination(e.target.value)}
                 />
               </div>
-              <div className="headerSearchItem">
+              <div className="headerSearchItem" onClick={handleCloseOptions}>
                 <FontAwesomeIcon icon={faCalendarDays} className="headerIcon" />
                 <span
                   onClick={() => setOpenDate(!openDate)}
@@ -119,6 +136,7 @@ const Header = ({ type }) => {
                 )}`}</span>
                 {openDate && (
                   <DateRange
+                    ref={dateRangeRef} // Tham chiếu DateRange
                     editableDateInputs={true}
                     onChange={(item) => setDates([item.selection])}
                     moveRangeOnFirstSelection={false}
@@ -128,7 +146,7 @@ const Header = ({ type }) => {
                   />
                 )}
               </div>
-              <div className="headerSearchItem">
+              <div className="headerSearchItem" onClick={handleCloseDateRange}>
                 <FontAwesomeIcon icon={faPerson} className="headerIcon" />
                 <span
                   onClick={() => setOpenOptions(!openOptions)}
@@ -136,6 +154,8 @@ const Header = ({ type }) => {
                 >{`${options.adult} người lớn · ${options.children} trẻ em · ${options.room} phòng`}</span>
                 {openOptions && (
                   <div className="options">
+                    {" "}
+                    {/* Thêm event onClick */}
                     <div className="optionItem">
                       <span className="optionText">Người lớn</span>
                       <div className="optionCounter">

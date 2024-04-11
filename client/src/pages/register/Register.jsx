@@ -33,6 +33,12 @@ const Register = () => {
       alert("Mật khẩu không hợp lệ");
       return;
     }
+    // Kiểm tra tính hợp lệ của email
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(credentials.email)) {
+      alert("Email không hợp lệ");
+      return;
+    }
 
     const res = await register(credentials);
     if (res) {
@@ -46,10 +52,10 @@ const Register = () => {
       <div className="register-page">
         <div className="register">
           <div className="rContainer">
-            <div className="rHeader">Register</div>
+            <div className="rHeader">Đăng ký</div>
             <input
               type="text"
-              placeholder="Username"
+              placeholder="Tên tài khoản"
               id="username"
               onChange={handleChange}
               className="rInput"
@@ -65,7 +71,7 @@ const Register = () => {
             />
             <input
               type={showPassword ? "text" : "password"} // Toggle input type
-              placeholder="Password"
+              placeholder="Mật khẩu"
               id="password"
               onChange={handleChange}
               className="rInput"
@@ -73,7 +79,7 @@ const Register = () => {
             />
             <input
               type={showPassword ? "text" : "password"} // Toggle input type
-              placeholder="Confirm Password"
+              placeholder="Nhập lại mật khẩu"
               id="confirmPassword"
               onChange={handleChange}
               className="rInput"
@@ -87,14 +93,14 @@ const Register = () => {
                 checked={showPassword} // Set checkbox state
                 onChange={handleShowPassword}
               />
-              <label htmlFor="showPassword">Show Password</label>
+              <label htmlFor="showPassword">Hiển thị mật khẩu</label>
             </div>
             <button
               disabled={loading}
               onClick={handleClick}
               className="rButton"
             >
-              Register
+              Đăng ký
             </button>
             {error && <span>{error}</span>}
           </div>

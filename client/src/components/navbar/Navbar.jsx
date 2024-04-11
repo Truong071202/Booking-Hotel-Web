@@ -33,7 +33,7 @@ const Navbar = () => {
                 Đăng ký
               </Link>
             </button>
-            <button style={{ padding: "5px", marginLeft: "20px" }}>
+            <button className="navButton" style={{ marginLeft: "20px" }}>
               <Link to="/login" style={{ textDecoration: "none" }}>
                 Đăng nhập
               </Link>

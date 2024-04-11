@@ -79,14 +79,14 @@ const Reserve = ({ setOpen, hotelId }) => {
           className="rClose"
           onClick={() => setOpen(false)}
         />
-        <span>Select your rooms:</span>
+        <span>Chọn loại phòng:</span>
         {data.map((item) => (
           <div className="rItem" key={item._id}>
             <div className="rItemInfo">
               <div className="rTitle">{item.title}</div>
               <div className="rDesc">{item.desc}</div>
               <div className="rMax">
-                Max people: <b>{item.maxPeople}</b>
+                Số người tối đa: <b>{item.maxPeople}</b>
               </div>
               <div className="rPrice">{item.price}</div>
             </div>
@@ -106,7 +106,7 @@ const Reserve = ({ setOpen, hotelId }) => {
           </div>
         ))}
         <button onClick={handleClick} className="rButton">
-          Reserve Now!
+          Đặt ngay!
         </button>
       </div>
     </div>

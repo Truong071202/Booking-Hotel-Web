@@ -91,7 +91,7 @@ const Hotel = () => {
     if (user) {
       setOpenModal(true);
     } else {
-      navigate("/login");
+      navigate("/login", { state: { from: location.pathname } }); // Truyền đường dẫn hiện tại
     }
   };
 

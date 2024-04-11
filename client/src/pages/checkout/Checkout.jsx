@@ -1,12 +1,25 @@
 import React, { useState } from "react";
 import "./checkout.css";
 import Navbar from "../../components/navbar/Navbar";
+import MailList from "./../../components/mailList/MailList";
+import Footer from "./../../components/footer/Footer";
+import { Link } from "react-router-dom";
 
 const Checkout = () => {
-  const [selectedPayment, setSelectedPayment] = useState(""); // State để lưu trữ phương thức thanh toán đã chọn
+  const [selectedPayment, setSelectedPayment] = useState("");
+  const [confirmed, setConfirmed] = useState(false);
 
   const handlePaymentSelection = (paymentMethod) => {
     setSelectedPayment(paymentMethod);
+  };
+
+  const handleConfirm = () => {
+    if (selectedPayment !== "") {
+      setConfirmed(true);
+      alert("Chọn phương thức thanh toán thành công!");
+    } else {
+      alert("Vui lòng chọn ít nhất một phương thức thanh toán!");
+    }
   };
 
   return (
@@ -19,9 +32,6 @@ const Checkout = () => {
           </h3>
         </div>
         <div className="containerPayment">
-          <h3 className="textPay">
-            Hãy lựa chọn các hình thức thanh toán dưới đây
-          </h3>
           <div className="paymentMethod">
             <label className="payment">
               <input
@@ -72,9 +82,14 @@ const Checkout = () => {
             <div className="textPrice">Tổng giá tiền:</div>
             <span className="numberPrice"></span>
           </div>
-          <button className="checkoutButton">Confirm</button>
+          <button className="checkoutButton" onClick={handleConfirm}>
+            Confirm
+          </button>
         </div>
+        {confirmed && <Link to="/">Quay trở lại trang chủ</Link>}
       </div>
+      <MailList />
+      <Footer />
     </>
   );
 };

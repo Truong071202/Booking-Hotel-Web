@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import "./login.css";
 import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Navbar from "../../components/navbar/Navbar";
 
 const Login = () => {
@@ -13,7 +13,9 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false); // State for password visibility
 
   const { loading, error, dispatch, login } = useContext(AuthContext);
+
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleChange = (e) => {
     setCredentials((prev) => ({ ...prev, [e.target.id]: e.target.value }));
@@ -27,7 +29,7 @@ const Login = () => {
     e.preventDefault();
     const res = await login(credentials);
     if (res) {
-      navigate("/"); // Nếu đăng nhập thành công, chuyển hướng đến trang /hom
+      navigate((location.state && location.state.from) || "/"); // Quay lại đường dẫn trước đó hoặc trang chính
     }
   };
 
@@ -37,10 +39,10 @@ const Login = () => {
       <div className="login-page">
         <div className="login">
           <div className="lContainer">
-            <div className="lHeader">Login</div>
+            <div className="lHeader">Đăng nhập</div>
             <input
               type="text"
-              placeholder="Username"
+              placeholder="Tên tài khoản"
               id="username"
               onChange={handleChange}
               className="lInput"
@@ -48,7 +50,7 @@ const Login = () => {
             />
             <input
               type={showPassword ? "text" : "password"} // Toggle input type
-              placeholder="Password"
+              placeholder="Mật khẩu"
               id="password"
               onChange={handleChange}
               className="lInput"
@@ -62,14 +64,14 @@ const Login = () => {
                 checked={showPassword} // Set checkbox state
                 onChange={handleShowPassword}
               />
-              <label htmlFor="showPassword">Show Password</label>
+              <label htmlFor="showPassword">Hiển thị mật khẩu</label>
             </div>
             <button
               disabled={loading}
               onClick={handleClick}
               className="lButton"
             >
-              Login
+              Đăng nhập
             </button>
             {error && <span>{error.message}</span>}
           </div>

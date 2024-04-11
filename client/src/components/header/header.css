@@ -9,7 +9,7 @@
 .headerContainer {
   width: 100%;
   max-width: 1024px;
-  margin: 20px 0px 100px 0px;
+  margin: 10px 0px 45px 0px;
 }
 
 .headerContainer.listMode {
@@ -19,13 +19,19 @@
 .headerList {
   display: flex;
   gap: 40px;
-  margin-bottom: 22px;
+  margin-bottom: 12px;
 }
 
 .headerListItem {
   display: flex;
   align-items: center;
   gap: 10px;
+  padding: 12px 6px;
+}
+
+.headerListItem:hover {
+  background-color: rgba(252, 252, 252, 0.363);
+  border-radius: 100px;
 }
 
 .headerListItem.active {

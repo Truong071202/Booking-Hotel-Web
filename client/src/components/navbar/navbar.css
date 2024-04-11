@@ -22,7 +22,13 @@
 .navButton {
   margin-left: 20px;
   border: none;
-  padding: 5px 10px;
+  padding: 7px 10px;
   cursor: pointer;
   color: #003580;
+  border-radius: 3px;
+}
+.navButton,
+.navButton > a {
+  color: #006ce4;
+  background-color: white;
 }
