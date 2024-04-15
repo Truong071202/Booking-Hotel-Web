@@ -31,7 +31,7 @@ const MailList = () => {
       <div className="mailInputContainer">
         <input
           type="text"
-          placeholder="Your Email"
+          placeholder="Nhập Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />

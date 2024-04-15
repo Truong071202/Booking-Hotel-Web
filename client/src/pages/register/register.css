@@ -3,6 +3,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
 }
 
 .rContainer {
@@ -57,7 +58,7 @@ body {
   min-height: 100vh;
   justify-content: center;
   align-items: center;
-  background-image: url("https://wallpapercave.com/wp/wp1846088.jpg");
+  background-image: url("../../imgs/wp1846088.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -78,3 +79,6 @@ body {
 }
 
 /* Other styles from previous response... */
+.error-message {
+  color: #fff;
+}

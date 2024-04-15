@@ -151,7 +151,10 @@ const Header = ({ type }) => {
                 <span
                   onClick={() => setOpenOptions(!openOptions)}
                   className="headerSearchText"
-                >{`${options.adult} người lớn · ${options.children} trẻ em · ${options.room} phòng`}</span>
+                >{`${Math.min(40, options.adult)} người lớn · ${Math.min(
+                  15,
+                  options.children
+                )} trẻ em · ${Math.min(30, options.room)} phòng`}</span>
                 {openOptions && (
                   <div className="options">
                     {" "}
@@ -167,7 +170,7 @@ const Header = ({ type }) => {
                           -
                         </button>
                         <span className="optionCounterNumber">
-                          {options.adult}
+                          {Math.min(40, options.adult)}
                         </span>
                         <button
                           className="optionCounterButton"
@@ -188,7 +191,7 @@ const Header = ({ type }) => {
                           -
                         </button>
                         <span className="optionCounterNumber">
-                          {options.children}
+                          {Math.min(15, options.children)}
                         </span>
                         <button
                           className="optionCounterButton"
@@ -209,7 +212,7 @@ const Header = ({ type }) => {
                           -
                         </button>
                         <span className="optionCounterNumber">
-                          {options.room}
+                          {Math.min(30, options.room)}
                         </span>
                         <button
                           className="optionCounterButton"

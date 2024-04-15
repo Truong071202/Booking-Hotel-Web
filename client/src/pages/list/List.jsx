@@ -23,13 +23,35 @@ const List = () => {
     `/hotels?city=${destination}&min=${min || 0}&max=${max || 999}`
   );
 
-  console.log(data);
-
   const handleClick = () => {
     reFetch();
   };
   const handleGoBack = () => {
     window.history.back();
+  };
+
+  const handleInputChange = (e, option) => {
+    const newValue = e.target.value;
+    if (newValue > option.max) {
+      alert(`Số lượng không được vượt quá ${option.max}!`);
+      // Nếu giá trị nhập vào lớn hơn max, đặt lại giá trị input thành max
+      e.target.value = option.max;
+    } else {
+      // Nếu không vượt quá, cập nhật giá trị state
+      switch (option.name) {
+        case "adult":
+          setOptions({ ...options, adult: newValue });
+          break;
+        case "children":
+          setOptions({ ...options, children: newValue });
+          break;
+        case "room":
+          setOptions({ ...options, room: newValue });
+          break;
+        default:
+          break;
+      }
+    }
   };
   return (
     <div>
@@ -98,8 +120,13 @@ const List = () => {
                   <input
                     type="number"
                     min={1}
+                    max={40}
                     className="lsOptionInput"
-                    placeholder={options.adult}
+                    placeholder={Math.min(40, options.adult)}
+                    title="Số lượng người lớn tối đa là 40!"
+                    onChange={(e) =>
+                      handleInputChange(e, { name: "adult", max: 40 })
+                    }
                   />
                 </div>
                 <div className="lsOptionItem">
@@ -107,8 +134,13 @@ const List = () => {
                   <input
                     type="number"
                     min={0}
+                    max={15}
                     className="lsOptionInput"
-                    placeholder={options.children}
+                    placeholder={Math.min(15, options.children)}
+                    title="Số lượng trẻ em tối đa là 15!"
+                    onChange={(e) =>
+                      handleInputChange(e, { name: "adult", max: 15 })
+                    }
                   />
                 </div>
                 <div className="lsOptionItem">
@@ -116,8 +148,13 @@ const List = () => {
                   <input
                     type="number"
                     min={1}
+                    max={30}
                     className="lsOptionInput"
-                    placeholder={options.room}
+                    placeholder={Math.min(30, options.room)}
+                    title="Số lượng phòng tối thiểu là 30!"
+                    onChange={(e) =>
+                      handleInputChange(e, { name: "adult", max: 30 })
+                    }
                   />
                 </div>
               </div>

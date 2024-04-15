@@ -5,7 +5,7 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 import "./review.css";
 import { useLocation, useParams } from "react-router-dom";
 
-const Review = () => {
+const Review = ({ isAuthenticated }) => {
   const location = useLocation();
   const hotelId = location.pathname.split("/")[2];
   const [feedback, setFeedback] = useState("");
@@ -17,7 +17,7 @@ const Review = () => {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const response = await axios.get(`/reviews/hotel/${hotelId}`); // Update the API call
+        const response = await axios.get(`/reviews/hotel/${hotelId}`);
         setReviews(response.data);
       } catch (error) {
         console.error("Error fetching reviews:", error);
@@ -29,7 +29,6 @@ const Review = () => {
   const handleSubmit = async () => {
     try {
       const response = await axios.post(`/reviews/hotel/${hotelId}`, {
-        // Update the API call
         feedback,
         username,
         email,
@@ -124,11 +123,11 @@ const Review = () => {
             </div>
           </div>
         </div>
-      </div>
-      <div className="buttonHandle">
-        <button type="button" className="submit" onClick={handleSubmit}>
-          Xác nhận
-        </button>
+        <div className="buttonHandle">
+          <button type="button" className="submit" onClick={handleSubmit}>
+            Xác nhận
+          </button>
+        </div>
       </div>
     </div>
   );

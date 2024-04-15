@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import "./register.css";
 import { AuthContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../../components/navbar/Navbar";
+import Navbar from "./../../components/navbar/Navbar";
 
 const Register = () => {
   const [credentials, setCredentials] = useState({
@@ -12,9 +12,9 @@ const Register = () => {
     confirmPassword: "",
   });
   const [showPassword, setShowPassword] = useState(false); // State for password visibility
-  const [error, setError] = useState(null); // State for error message
+  const [passwordMatchError, setPasswordMatchError] = useState(false); // State for password match error
 
-  const { loading, register } = useContext(AuthContext);
+  const { loading, error, register } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -25,18 +25,12 @@ const Register = () => {
     setShowPassword(!showPassword); // Toggle password visibility
   };
 
-  const handleClick = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Kiểm tra xác nhận mật khẩu
+    // Check if passwords match
     if (credentials.password !== credentials.confirmPassword) {
-      alert("Mật khẩu không hợp lệ");
-      return;
-    }
-    // Kiểm tra tính hợp lệ của email
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(credentials.email)) {
-      alert("Email không hợp lệ");
+      setPasswordMatchError(true);
       return;
     }
 
@@ -51,7 +45,7 @@ const Register = () => {
       <Navbar />
       <div className="register-page">
         <div className="register">
-          <div className="rContainer">
+          <form onSubmit={handleSubmit} className="rContainer">
             <div className="rHeader">Đăng ký</div>
             <input
               type="text"
@@ -95,15 +89,19 @@ const Register = () => {
               />
               <label htmlFor="showPassword">Hiển thị mật khẩu</label>
             </div>
-            <button
-              disabled={loading}
-              onClick={handleClick}
-              className="rButton"
-            >
+            {passwordMatchError && (
+              <span
+                style={{ textAlign: "center", color: "red" }}
+                className="err-message"
+              >
+                Mật khẩu không khớp.
+              </span>
+            )}
+            <button disabled={loading} className="rButton" type="submit">
               Đăng ký
             </button>
-            {error && <span>{error}</span>}
-          </div>
+          </form>
+          {error && <span className="error-message">{error.message}</span>}
         </div>
       </div>
     </>
