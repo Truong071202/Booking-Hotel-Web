@@ -3,20 +3,23 @@ import "./mailList.css";
 
 const MailList = () => {
   const [email, setEmail] = useState("");
-  const [showAlert, setShowAlert] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubscribe = () => {
     // Kiểm tra xem email có đúng định dạng không
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      alert("Vui lòng nhập địa chỉ email hợp lệ!");
+      setErrorMessage("Vui lòng nhập địa chỉ email hợp lệ!");
+      setSuccessMessage(""); // Reset success message
       return;
     }
 
     // Thực hiện xác nhận và lưu trữ email ở đây (có thể gọi API để xử lý)
 
-    // Hiển thị thông báo
-    setShowAlert(true);
+    // Hiển thị thông báo thành công
+    setSuccessMessage("Email của bạn đã được đăng ký!");
+    setErrorMessage(""); // Reset error message
 
     // Xóa email sau khi đăng ký
     setEmail("");
@@ -37,13 +40,10 @@ const MailList = () => {
         />
         <button onClick={handleSubscribe}>Đăng ký</button>
       </div>
-      {showAlert && (
-        <div className="alert">
-          <span className="close" onClick={() => setShowAlert(false)}>
-            &times;
-          </span>
-          <strong>Thành công!</strong> Email của bạn đã được đăng ký.
-        </div>
+      {/* Chỉ hiển thị một trong hai thông báo */}
+      {errorMessage && <div className="errorMessage">{errorMessage}</div>}
+      {successMessage && !errorMessage && (
+        <div className="successMessage">{successMessage}</div>
       )}
     </div>
   );

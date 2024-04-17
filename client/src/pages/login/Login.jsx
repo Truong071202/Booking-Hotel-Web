@@ -73,7 +73,11 @@ const Login = () => {
             >
               Đăng nhập
             </button>
-            {error && <span>{error.message}</span>}
+            {error && (
+              <span style={{ color: "red", textAlign: "center" }}>
+                {error.message}
+              </span>
+            )}
           </div>
         </div>
       </div>

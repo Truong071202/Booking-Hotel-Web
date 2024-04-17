@@ -41,3 +41,8 @@
   background-color: #000; /* Màu đen khi hover */
   color: #fff; /* Màu văn bản trắng khi hover */
 }
+
+.messagePay,
+.errorMessage {
+  margin: 12px 0;
+}

@@ -13,6 +13,7 @@ const Register = () => {
   });
   const [showPassword, setShowPassword] = useState(false); // State for password visibility
   const [passwordMatchError, setPasswordMatchError] = useState(false); // State for password match error
+  const [errorMessage, setErrorMessage] = useState(""); // State for custom error message
 
   const { loading, error, register } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -97,11 +98,19 @@ const Register = () => {
                 Mật khẩu không khớp.
               </span>
             )}
+            {error && (
+              <span
+                className="error-message"
+                onClick={() => setErrorMessage(error.message)}
+                style={{ textAlign: "center", color: "red" }}
+              >
+                Tài khoản hoặc Email đã tồn tại!
+              </span>
+            )}
             <button disabled={loading} className="rButton" type="submit">
               Đăng ký
             </button>
           </form>
-          {error && <span className="error-message">{error.message}</span>}
         </div>
       </div>
     </>

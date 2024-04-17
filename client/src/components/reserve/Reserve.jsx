@@ -12,6 +12,7 @@ const Reserve = ({ setOpen, hotelId }) => {
   const [selectedRooms, setSelectedRooms] = useState([]);
   const { data, loading, error } = useFetch(`/hotels/room/${hotelId}`);
   const { dates } = useContext(SearchContext);
+  const [showMessage, setShowMessage] = useState(false);
 
   const getDatesInRange = (startDate, endDate) => {
     const start = new Date(startDate);
@@ -53,7 +54,6 @@ const Reserve = ({ setOpen, hotelId }) => {
 
   const handleClick = async () => {
     if (selectedRooms.length > 0) {
-      // Kiểm tra nếu đã chọn ít nhất một phòng
       try {
         await Promise.all(
           selectedRooms.map((roomId) => {
@@ -67,7 +67,7 @@ const Reserve = ({ setOpen, hotelId }) => {
         navigate("/information");
       } catch (err) {}
     } else {
-      alert("Vui lòng chọn ít nhất một phòng trước khi tiếp tục.");
+      setShowMessage(true);
     }
   };
 
@@ -108,6 +108,11 @@ const Reserve = ({ setOpen, hotelId }) => {
         <button onClick={handleClick} className="rButton">
           Đặt ngay!
         </button>
+        {showMessage && (
+          <p className="errorMessage" style={{ color: "red" }}>
+            Vui lòng chọn ít nhất một phòng trước khi tiếp tục.
+          </p>
+        )}
       </div>
     </div>
   );

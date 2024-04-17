@@ -17,7 +17,7 @@
 
 .rInput {
   width: 36vh;
-  height: 30px;
+  height: 22px;
   padding: 10px;
   border-radius: 5px;
   font-size: 14px;
@@ -80,5 +80,7 @@ body {
 
 /* Other styles from previous response... */
 .error-message {
-  color: #fff;
+  margin-top: 5px;
+  color: red;
+  background-color: white;
 }

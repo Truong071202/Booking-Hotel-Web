@@ -7,7 +7,10 @@ import Navbar from "./../../components/navbar/Navbar";
 import { Link } from "react-router-dom";
 
 const Information = () => {
+  const [fullName, setFullName] = useState(""); // State to store full name
   const [email, setEmail] = useState(""); // State to store email
+  const [phoneNumber, setPhoneNumber] = useState(""); // State to store phone number
+  const [errorMessage, setErrorMessage] = useState(""); // State to store error message
 
   const handleEmailValidation = () => {
     // Simple email validation using regex
@@ -16,14 +19,27 @@ const Information = () => {
   };
 
   const handleButtonClick = () => {
-    // Check if email is valid
-    if (handleEmailValidation()) {
-      // If valid, navigate to "/checkout"
-      window.location.href = "/checkout";
-    } else {
-      // If not valid, show an alert or handle it as per your requirement
-      alert("Email không hợp lệ. Vui lòng kiểm tra lại!");
+    // Check if all fields are filled
+    if (
+      fullName.trim() === "" ||
+      email.trim() === "" ||
+      phoneNumber.trim() === ""
+    ) {
+      setErrorMessage("Vui lòng điền đầy đủ thông tin!");
+      return;
     }
+    // Check if email is valid
+    if (!handleEmailValidation()) {
+      setErrorMessage("Email không hợp lệ. Vui lòng kiểm tra lại!");
+      return;
+    }
+    // Check if phoneNumber is numeric
+    if (!/^\d+$/.test(phoneNumber)) {
+      setErrorMessage("Số điện thoại phải là số!");
+      return;
+    }
+    // If all validations pass, navigate to "/checkout"
+    window.location.href = "/checkout";
   };
 
   return (
@@ -33,7 +49,13 @@ const Information = () => {
         <h2>Nhập thông tin</h2>
         <div className="inputContainer">
           <label htmlFor="fullName">Họ và tên:</label>
-          <input type="text" id="fullName" name="fullName" />
+          <input
+            type="text"
+            id="fullName"
+            name="fullName"
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)} // Update fullName state on change
+          />
         </div>
         <div className="inputContainer">
           <label htmlFor="email">Email:</label>
@@ -47,22 +69,18 @@ const Information = () => {
         </div>
         <div className="inputContainer">
           <label htmlFor="phoneNumber">Số điện thoại:</label>
-          <input type="tel" id="phoneNumber" name="phoneNumber" />
+          <input
+            type="tel"
+            id="phoneNumber"
+            name="phoneNumber"
+            value={phoneNumber}
+            onChange={(e) => setPhoneNumber(e.target.value)} // Update phoneNumber state on change
+          />
         </div>
-        <p className="reminder">Vui lòng nhập đầy đủ thông tin ở phía trên!</p>
-        <Link
-          className="submitButton"
-          style={{ textDecoration: "none" }}
-          to="/checkout"
-          onClick={(e) => {
-            // Prevent default link behavior
-            e.preventDefault();
-            // Call handleButtonClick when link clicked
-            handleButtonClick();
-          }}
-        >
+        {errorMessage && <p className="reminder">{errorMessage}</p>}
+        <button className="submitButton" onClick={handleButtonClick}>
           Xác nhận thông tin
-        </Link>
+        </button>
       </div>
       <MailList />
       <Footer />

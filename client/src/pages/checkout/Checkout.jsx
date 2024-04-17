@@ -8,20 +8,30 @@ import { Link } from "react-router-dom";
 const Checkout = () => {
   const [selectedPayment, setSelectedPayment] = useState("");
   const [confirmed, setConfirmed] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handlePaymentSelection = (paymentMethod) => {
     setSelectedPayment(paymentMethod);
+    setConfirmed(false); // Reset confirmed when payment method changes
   };
 
   const handleConfirm = () => {
     if (selectedPayment !== "") {
-      setConfirmed(true);
-      alert("Chọn phương thức thanh toán thành công!");
+      if (selectedPayment === "Thanh toán khi nhận phòng") {
+        setConfirmed(true);
+        setErrorMessage("");
+      } else {
+        setConfirmed(false);
+        const selectedMethods = selectedPayment.split(", ");
+        const message = `Chọn phương thức thanh toán thành công! Phòng sẽ được đặt sau khi sử dụng "${selectedMethods.join(
+          ", "
+        )}" để thanh toán.`;
+        setErrorMessage(message);
+      }
     } else {
-      alert("Vui lòng chọn ít nhất một phương thức thanh toán!");
+      setErrorMessage("Vui lòng chọn ít nhất một phương thức thanh toán!");
     }
   };
-
   return (
     <>
       <Navbar />
@@ -86,7 +96,39 @@ const Checkout = () => {
             Confirm
           </button>
         </div>
-        {confirmed && <Link to="/">Quay trở lại trang chủ</Link>}
+        {errorMessage && (
+          <p
+            style={{ color: "red", textAlign: "center" }}
+            className="errorMessage"
+          >
+            {errorMessage}
+          </p>
+        )}
+
+        {confirmed && selectedPayment === "Thanh toán khi nhận phòng" && (
+          <>
+            <p
+              className="messagePay"
+              style={{ color: "red", textAlign: "center" }}
+            >
+              Đặt phòng thành công! Bạn sẽ thanh toán sau khi nhận phòng trực
+              tiếp!
+            </p>
+          </>
+        )}
+
+        {confirmed && selectedPayment !== "Thanh toán khi nhận phòng" && (
+          <>
+            <p
+              className="messagePay"
+              style={{ color: "red", textAlign: "center" }}
+            >
+              Chọn phương thức thanh toán thành công! Phòng của bạn đã được đặt
+              sau khi thanh toán!
+            </p>
+          </>
+        )}
+        <Link to="/">Quay trở lại trang chủ</Link>
       </div>
       <MailList />
       <Footer />
