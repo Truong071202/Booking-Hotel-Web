@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
@@ -13,6 +13,9 @@ const Review = ({ isAuthenticated }) => {
   const [email, setEmail] = useState("");
   const [star, setStar] = useState(1);
   const [reviews, setReviews] = useState([]);
+  const [error, setError] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [reviewsPerPage] = useState(9);
 
   useEffect(() => {
     const fetchReviews = async () => {
@@ -26,7 +29,21 @@ const Review = ({ isAuthenticated }) => {
     fetchReviews();
   }, [hotelId]);
 
+  const fetchReviews = async () => {
+    try {
+      const response = await axios.get(`/reviews/hotel/${hotelId}`);
+      setReviews(response.data);
+    } catch (error) {
+      console.error("Error fetching reviews:", error);
+    }
+  };
+
   const handleSubmit = async () => {
+    if (!feedback || !username || !email) {
+      setError("Vui lòng điền đầy đủ thông tin");
+      return;
+    }
+
     try {
       const response = await axios.post(`/reviews/hotel/${hotelId}`, {
         feedback,
@@ -39,10 +56,26 @@ const Review = ({ isAuthenticated }) => {
       setUsername("");
       setEmail("");
       setStar(1);
+      setError("");
+      fetchReviews(); // Refresh reviews after submitting a new one
     } catch (error) {
       console.error("Error submitting review:", error);
     }
   };
+
+  // Get current reviews
+  const indexOfLastReview = currentPage * reviewsPerPage;
+  const indexOfFirstReview = indexOfLastReview - reviewsPerPage;
+  const currentReviews = reviews.slice(indexOfFirstReview, indexOfLastReview);
+
+  // Change page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  // Calculate page numbers
+  const pageNumbers = [];
+  for (let i = 1; i <= Math.ceil(reviews.length / reviewsPerPage); i++) {
+    pageNumbers.push(i);
+  }
 
   return (
     <div className="review">
@@ -50,7 +83,7 @@ const Review = ({ isAuthenticated }) => {
         <h2>Đánh giá khách hàng</h2>
       </div>
       <div className="containerReviews">
-        {reviews.map((review, index) => (
+        {currentReviews.map((review, index) => (
           <div className="cardReview" key={index}>
             <div className="boxReview">
               <div className="revCustomer">
@@ -64,6 +97,44 @@ const Review = ({ isAuthenticated }) => {
           </div>
         ))}
       </div>
+      {pageNumbers.length > 1 && (
+        <ul className="pagination">
+          <li>
+            <button
+              onClick={() =>
+                setCurrentPage((prevPage) =>
+                  prevPage === 1 ? prevPage : prevPage - 1
+                )
+              }
+              disabled={currentPage === 1}
+            >
+              Prev
+            </button>
+          </li>
+          {pageNumbers.map((number) => (
+            <li key={number}>
+              <button
+                onClick={() => paginate(number)}
+                className={currentPage === number ? "active" : ""}
+              >
+                {number}
+              </button>
+            </li>
+          ))}
+          <li>
+            <button
+              onClick={() =>
+                setCurrentPage((prevPage) =>
+                  prevPage === pageNumbers.length ? prevPage : prevPage + 1
+                )
+              }
+              disabled={currentPage === pageNumbers.length}
+            >
+              Next
+            </button>
+          </li>
+        </ul>
+      )}
       <div className="writeReview">
         <h3 style={{ marginBottom: "20px", color: "#0871c2" }}>
           Write a review
@@ -123,6 +194,9 @@ const Review = ({ isAuthenticated }) => {
             </div>
           </div>
         </div>
+        {error && (
+          <div style={{ color: "red", margin: "10px auto" }}>{error}</div>
+        )}
         <div className="buttonHandle">
           <button type="button" className="submit" onClick={handleSubmit}>
             Xác nhận

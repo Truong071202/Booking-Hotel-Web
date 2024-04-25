@@ -93,7 +93,7 @@ const Checkout = () => {
             <span className="numberPrice"></span>
           </div>
           <button className="checkoutButton" onClick={handleConfirm}>
-            Confirm
+            Xác nhận
           </button>
         </div>
         {errorMessage && (

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./reserve.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
@@ -9,7 +9,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const Reserve = ({ setOpen, hotelId }) => {
-  const [selectedRooms, setSelectedRooms] = useState([]);
+  const [selectedRooms, setSelectedRooms] = useState({});
   const { data, loading, error } = useFetch(`/hotels/room/${hotelId}`);
   const { dates } = useContext(SearchContext);
   const [showMessage, setShowMessage] = useState(false);
@@ -40,23 +40,32 @@ const Reserve = ({ setOpen, hotelId }) => {
     return !isFound;
   };
 
-  const handleSelect = (e) => {
+  const handleSelect = (e, roomId) => {
     const checked = e.target.checked;
-    const value = e.target.value;
-    setSelectedRooms(
-      checked
-        ? [...selectedRooms, value]
-        : selectedRooms.filter((item) => item !== value)
-    );
+    setSelectedRooms((prevSelectedRooms) => ({
+      ...prevSelectedRooms,
+      [roomId]: checked ? 1 : 0,
+    }));
+  };
+
+  const handleQuantityChange = (roomId, change) => {
+    setSelectedRooms((prevSelectedRooms) => ({
+      ...prevSelectedRooms,
+      [roomId]: Math.max((prevSelectedRooms[roomId] || 0) + change, 0),
+    }));
   };
 
   const navigate = useNavigate();
 
   const handleClick = async () => {
-    if (selectedRooms.length > 0) {
+    const selectedRoomIds = Object.keys(selectedRooms).filter(
+      (roomId) => selectedRooms[roomId] > 0
+    );
+
+    if (selectedRoomIds.length > 0) {
       try {
         await Promise.all(
-          selectedRooms.map((roomId) => {
+          selectedRoomIds.map((roomId) => {
             const res = axios.put(`/rooms/availability/${roomId}`, {
               dates: alldates,
             });
@@ -91,17 +100,16 @@ const Reserve = ({ setOpen, hotelId }) => {
               <div className="rPrice">{item.price}</div>
             </div>
             <div className="rSelectRooms">
-              {item.roomNumbers.map((roomNumber) => (
-                <div className="room">
-                  <label>{roomNumber.number}</label>
-                  <input
-                    type="checkbox"
-                    value={roomNumber._id}
-                    onChange={handleSelect}
-                    disabled={!isAvailable(roomNumber)}
-                  />
-                </div>
-              ))}
+              <div className="room">
+                <span>Số lượng: </span>
+                <button onClick={() => handleQuantityChange(item._id, -1)}>
+                  -
+                </button>
+                <span>{selectedRooms[item._id] || 0}</span>
+                <button onClick={() => handleQuantityChange(item._id, 1)}>
+                  +
+                </button>
+              </div>
             </div>
           </div>
         ))}

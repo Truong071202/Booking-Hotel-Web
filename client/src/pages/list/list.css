@@ -86,3 +86,30 @@
   min-width: 1024px;
   margin: 12px auto;
 }
+
+.suggestion {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  background-color: #f9f9f9;
+  width: calc(100% - 22px);
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  z-index: 1;
+  top: calc(23% + 4px);
+  left: 10px;
+  border-top: none;
+}
+
+.suggestion li {
+  padding: 10px 15px;
+  cursor: pointer;
+  color: #000;
+  font-size: 13px;
+}
+
+.suggestion li:hover {
+  background-color: #ddd;
+}

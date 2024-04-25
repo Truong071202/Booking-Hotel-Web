@@ -51,6 +51,7 @@ const Information = () => {
           <label htmlFor="fullName">Họ và tên:</label>
           <input
             type="text"
+            placeholder="Họ tên"
             id="fullName"
             name="fullName"
             value={fullName}
@@ -61,6 +62,7 @@ const Information = () => {
           <label htmlFor="email">Email:</label>
           <input
             type="email"
+            placeholder="Email"
             id="email"
             name="email"
             value={email}
@@ -71,6 +73,7 @@ const Information = () => {
           <label htmlFor="phoneNumber">Số điện thoại:</label>
           <input
             type="tel"
+            placeholder="SDT"
             id="phoneNumber"
             name="phoneNumber"
             value={phoneNumber}

@@ -34,6 +34,8 @@ const Header = ({ type }) => {
     children: 0,
     room: 1,
   });
+  const [suggestions, setSuggestions] = useState([]); // State để lưu trữ danh sách gợi ý
+  const [showSuggestions, setShowSuggestions] = useState(false); // State để điều khiển hiển thị gợi ý
 
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
@@ -63,6 +65,27 @@ const Header = ({ type }) => {
     navigate("/hotels", { state: { destination, dates, options } });
   };
 
+  // Hàm để xử lý sự kiện khi người dùng nhập vào trường input
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    setDestination(value);
+
+    // Tìm kiếm và hiển thị gợi ý dựa trên giá trị nhập vào
+    const suggestions = ["Đà Nẵng", "Hội An", "Huế"].filter((city) =>
+      city.toLowerCase().includes(value.toLowerCase())
+    );
+    setSuggestions(suggestions);
+
+    // Hiển thị hoặc ẩn gợi ý
+    setShowSuggestions(true);
+  };
+
+  // Hàm để chọn một gợi ý và điền vào trường input
+  const handleSuggestionClick = (suggestion) => {
+    setDestination(suggestion);
+    setShowSuggestions(false);
+  };
+
   // Đóng DateRange khi click vào options
   const handleCloseDateRange = () => {
     setOpenDate(false);
@@ -71,6 +94,7 @@ const Header = ({ type }) => {
   const handleCloseOptions = () => {
     setOpenOptions(false);
   };
+
   return (
     <div className="header">
       <div
@@ -87,17 +111,6 @@ const Header = ({ type }) => {
               </Link>
             </span>
           </div>
-          {/* <div className="headerListItem">
-            <FontAwesomeIcon icon={faBed} />
-            <span>
-              <Link
-                to="/hotels"
-                style={{ color: "unset", textDecoration: "none" }}
-              >
-                Lưu trú
-              </Link>
-            </span>
-          </div> */}
         </div>
         {type !== "list" && (
           <>
@@ -106,15 +119,7 @@ const Header = ({ type }) => {
               Nhận phần thưởng cho chuyến du lịch của bạn - tiết kiệm ngay lập
               tức từ 10% trở lên với tài khoản HotelBooking miễn phí
             </p>
-            {/* {!user && (
-              <Link
-                to="/register"
-                className="headerBtn"
-                style={{ textDecoration: "none" }}
-              >
-                Đăng nhập / Đăng ký
-              </Link>
-            )} */}
+
             <div className="headerSearch">
               <div className="headerSearchItem">
                 <FontAwesomeIcon icon={faBed} className="headerIcon" />
@@ -122,8 +127,21 @@ const Header = ({ type }) => {
                   type="text"
                   placeholder="Bạn đang ở đâu?"
                   className="headerSearchInput"
-                  onChange={(e) => setDestination(e.target.value)}
+                  value={destination}
+                  onChange={handleInputChange}
                 />
+                {showSuggestions && (
+                  <ul className="suggestions">
+                    {suggestions.map((suggestion, index) => (
+                      <li
+                        key={index}
+                        onClick={() => handleSuggestionClick(suggestion)}
+                      >
+                        {suggestion}
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
               <div className="headerSearchItem" onClick={handleCloseOptions}>
                 <FontAwesomeIcon icon={faCalendarDays} className="headerIcon" />

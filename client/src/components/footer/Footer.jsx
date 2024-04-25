@@ -1,48 +1,36 @@
+import { Link } from "react-router-dom";
 import "./footer.css";
 
 const Footer = () => {
   return (
     <div className="footer">
       <div className="fLists">
-        <ul className="fList">
-          <li className="fListItem">Quốc gia</li>
-          <li className="fListItem">Khu vực</li>
-          <li className="fListItem">Thành phố</li>
-          <li className="fListItem">Quận huyện</li>
-          <li className="fListItem">Sân bay</li>
-          <li className="fListItem">Khách sạn</li>
-        </ul>
-        <ul className="fList">
-          <li className="fListItem">Nhà ở</li>
-          <li className="fListItem">Căn hộ</li>
-          <li className="fListItem">Khu nghỉ dưỡng</li>
-          <li className="fListItem">Biệt thự</li>
-          <li className="fListItem">Nhà trọ</li>
-          <li className="fListItem">Nhà khách</li>
-        </ul>
-        <ul className="fList">
-          <li className="fListItem">Nơi lưu trú độc đáo</li>
-          <li className="fListItem">Đánh giá</li>
-          <li className="fListItem">Không gói: Bài viết du lịch</li>
-          <li className="fListItem">Cộng đồng du lịch</li>
-          <li className="fListItem">Ưu đãi mùa và ngày lễ</li>
-        </ul>
-        <ul className="fList">
-          <li className="fListItem">Thuê xe </li>
-          <li className="fListItem">Tìm chuyến bay</li>
-          <li className="fListItem">Đặt bàn nhà hàng </li>
-          <li className="fListItem">Đại lý du lịch </li>
-        </ul>
-        <ul className="fList">
-          <li className="fListItem">Dịch vụ khách hàng</li>
-          <li className="fListItem">Trợ giúp đối tác</li>
-          <li className="fListItem">Sự nghiệp</li>
-          <li className="fListItem">Bền vững</li>
-          <li className="fListItem">Trung tâm báo chí</li>
-          <li className="fListItem">Trung tâm tài nguyên an toàn</li>
-          <li className="fListItem">Quan hệ cổ đông</li>
-          <li className="fListItem">Điều khoản và điều kiện</li>
-        </ul>
+        <div className="footer-info">
+          <h3>Về chúng tôi</h3>
+          <p>
+            Trang web này được tạo ra để cung cấp dịch vụ đặt phòng trực tuyến
+            dễ dàng và thuận tiện.
+          </p>
+          <p>
+            Chúng tôi cam kết mang đến trải nghiệm đặt phòng tốt nhất cho bạn!
+          </p>
+        </div>
+
+        <div className="footer-about">
+          <h3>Về chúng tôi</h3>
+          <Link to="/" style={{ color: "#006ce4", textDecoration: "none" }}>
+            <span className="logo">HotelBooking</span>
+          </Link>
+        </div>
+        <div className="footer-contact">
+          <h3>Liên hệ</h3>
+          <p>Email: DChotelbooking@gmail.com</p>
+          <p>Điện thoại: 0123 456 789</p>
+          <p>Địa chỉ: Số 123, Đường ABC, Thành phố XYZ</p>
+        </div>
+      </div>
+      <div className="footer-bottom">
+        <p>© 2024 Tất cả các quyền đã được bảo lưu.</p>
       </div>
     </div>
   );

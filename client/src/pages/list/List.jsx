@@ -2,7 +2,7 @@ import "./list.css";
 import Navbar from "../../components/navbar/Navbar";
 import Header from "../../components/header/Header";
 import { useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { format } from "date-fns";
 import { DateRange } from "react-date-range";
 import SearchItem from "../../components/searchItem/SearchItem.jsx";
@@ -18,10 +18,20 @@ const List = () => {
   const [options, setOptions] = useState(location.state.options);
   const [min, setMin] = useState(undefined);
   const [max, setMax] = useState(undefined);
+  const [suggestions, setSuggestions] = useState([]); // Danh sách gợi ý
 
   const { data, loading, error, reFetch } = useFetch(
     `/hotels?city=${destination}&min=${min || 0}&max=${max || 999}`
   );
+  const [showSuggestions, setShowSuggestions] = useState(false); // Đã thêm khởi tạo cho showSuggestions
+
+  useEffect(() => {
+    // Lọc danh sách gợi ý dựa trên giá trị nhập vào của người dùng
+    const filteredSuggestions = ["Đà Nẵng", "Hội An", "Huế"].filter((city) =>
+      city.toLowerCase().includes(destination.toLowerCase())
+    );
+    setSuggestions(filteredSuggestions);
+  }, [destination]);
 
   const handleClick = () => {
     reFetch();
@@ -30,29 +40,25 @@ const List = () => {
     window.history.back();
   };
 
-  const handleInputChange = (e, option) => {
+  const handleInputChange = (e) => {
     const newValue = e.target.value;
-    if (newValue > option.max) {
-      alert(`Số lượng không được vượt quá ${option.max}!`);
-      // Nếu giá trị nhập vào lớn hơn max, đặt lại giá trị input thành max
-      e.target.value = option.max;
+    setDestination(newValue);
+
+    // Hiển thị danh sách gợi ý nếu ô input không rỗng
+    if (newValue.trim() !== "") {
+      setShowSuggestions(true);
     } else {
-      // Nếu không vượt quá, cập nhật giá trị state
-      switch (option.name) {
-        case "adult":
-          setOptions({ ...options, adult: newValue });
-          break;
-        case "children":
-          setOptions({ ...options, children: newValue });
-          break;
-        case "room":
-          setOptions({ ...options, room: newValue });
-          break;
-        default:
-          break;
-      }
+      setShowSuggestions(false);
     }
   };
+
+  const handleSuggestionClick = (suggestion) => {
+    setDestination(suggestion);
+    // Xóa danh sách gợi ý sau khi chọn
+    setSuggestions([]);
+    setShowSuggestions(false);
+  };
+
   return (
     <div>
       <Navbar />
@@ -71,10 +77,24 @@ const List = () => {
             <div className="lsItem">
               <label>Điểm đến</label>
               <input
-                placeholder={destination}
+                placeholder="Nhập điểm đến"
                 type="text"
-                onChange={(e) => setDestination(e.target.value)}
+                value={destination}
+                onChange={handleInputChange}
               />
+              {/* Hiển thị gợi ý nếu có và ô input không rỗng */}
+              {showSuggestions && suggestions.length > 0 && (
+                <ul className="suggestion">
+                  {suggestions.map((suggestion, index) => (
+                    <li
+                      key={index}
+                      onClick={() => handleSuggestionClick(suggestion)}
+                    >
+                      {suggestion}
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
             <div className="lsItem">
               <label>Ngày check-in</label>
@@ -95,7 +115,7 @@ const List = () => {
               <div className="lsOptions">
                 <div className="lsOptionItem">
                   <span className="lsOptionText">
-                    Giá thấp nhấp <small>một đêm</small>
+                    Giá thấp nhất <small>một đêm</small>
                   </span>
                   <input
                     type="number"
@@ -125,7 +145,7 @@ const List = () => {
                     placeholder={Math.min(40, options.adult)}
                     title="Số lượng người lớn tối đa là 40!"
                     onChange={(e) =>
-                      handleInputChange(e, { name: "adult", max: 40 })
+                      setOptions({ ...options, adult: e.target.value })
                     }
                   />
                 </div>
@@ -139,7 +159,7 @@ const List = () => {
                     placeholder={Math.min(15, options.children)}
                     title="Số lượng trẻ em tối đa là 15!"
                     onChange={(e) =>
-                      handleInputChange(e, { name: "adult", max: 15 })
+                      setOptions({ ...options, children: e.target.value })
                     }
                   />
                 </div>
@@ -151,9 +171,9 @@ const List = () => {
                     max={30}
                     className="lsOptionInput"
                     placeholder={Math.min(30, options.room)}
-                    title="Số lượng phòng tối thiểu là 30!"
+                    title="Số lượng phòng tối đa là 30!"
                     onChange={(e) =>
-                      handleInputChange(e, { name: "adult", max: 30 })
+                      setOptions({ ...options, room: e.target.value })
                     }
                   />
                 </div>

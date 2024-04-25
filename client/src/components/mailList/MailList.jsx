@@ -15,8 +15,6 @@ const MailList = () => {
       return;
     }
 
-    // Thực hiện xác nhận và lưu trữ email ở đây (có thể gọi API để xử lý)
-
     // Hiển thị thông báo thành công
     setSuccessMessage("Email của bạn đã được đăng ký!");
     setErrorMessage(""); // Reset error message

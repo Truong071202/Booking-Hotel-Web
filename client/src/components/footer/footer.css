@@ -1,27 +1,51 @@
 .footer {
   width: 100%;
-  width: 1024px;
-  font-size: 12px;
+  background-color: #f8f9fa;
+  padding: 50px 20px;
+  box-sizing: border-box;
 }
 
 .fLists {
-  width: 100%;
+  max-width: 1024px;
+  margin: 0 auto;
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 50px;
+  flex-wrap: wrap;
 }
 
-.fList {
-  list-style: none;
-  padding: 0;
+.footer-info,
+.footer-contact,
+.footer-about {
+  flex: 1;
+  min-width: 250px;
+  margin-right: 20px;
 }
 
-.fListItem {
+.footer-info h3,
+.footer-contact h3,
+.footer-about h3 {
+  color: #333;
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+.footer-info p,
+.footer-contact p {
+  color: #666;
   margin-bottom: 10px;
-  color: #003580;
-  cursor: pointer;
 }
 
-.footer {
-  margin: 20px auto 0;
+.footer-about .logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.footer-about .logo:hover {
+  color: #006ce4;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 30px;
+  color: #666;
+  font-size: 14px;
 }
