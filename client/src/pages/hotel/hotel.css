@@ -166,3 +166,9 @@
 .backButton:hover svg {
   fill: blue; /* Thay đổi màu của biểu tượng */
 }
+
+.shareInfo {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}

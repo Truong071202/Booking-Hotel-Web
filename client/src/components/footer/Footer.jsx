@@ -17,7 +17,7 @@ const Footer = () => {
         </div>
 
         <div className="footer-about">
-          <h3>Về chúng tôi</h3>
+          <h3>Tranh chính</h3>
           <Link to="/" style={{ color: "#006ce4", textDecoration: "none" }}>
             <span className="logo">HotelBooking</span>
           </Link>

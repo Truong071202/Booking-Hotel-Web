@@ -16,6 +16,12 @@ import { SearchContext } from "../../context/SearchContext";
 import { AuthContext } from "../../context/AuthContext";
 import Reserve from "../../components/reserve/Reserve";
 import Review from "../../components/review/Review";
+import {
+  FacebookShareButton,
+  FacebookIcon,
+  EmailShareButton,
+  EmailIcon,
+} from "react-share"; // Import react-share components
 
 const Hotel = () => {
   const location = useLocation();
@@ -53,12 +59,6 @@ const Hotel = () => {
       fetchData();
     }
   }, [id]);
-
-  // console.log("data");
-  // console.log(data);
-
-  // console.log("id");
-  // console.log(id);
 
   const MILLISECONDS_PER_DAY = 1000 * 60 * 60 * 24;
 
@@ -172,6 +172,17 @@ const Hotel = () => {
               <div className="hotelDetailsTexts">
                 <h1 className="hotelTitle">Mô tả chi tiết</h1>
                 <p className="hotelDesc">{data.desc}</p>
+                <div className="shareInfo">
+                  <p style={{ marginRight: "4px" }}>Chia sẻ:</p>
+
+                  <EmailShareButton
+                    url={window.location.href}
+                    subject={`Hãy thử đặt tại đây: ${data.name}`}
+                    body={`Tôi có một địa điểm nghỉ dưỡng rất tốt: ${data.name} nằm ở ${data.address}. Thử xem qua nhé!`}
+                  >
+                    <EmailIcon size={32} round />
+                  </EmailShareButton>
+                </div>
               </div>
               <div className="hotelDetailsPrice">
                 <h1>Nơi lý tưởng cho {days}-đêm nghỉ dưỡng!</h1>
